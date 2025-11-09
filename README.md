@@ -6,11 +6,17 @@
 [![Downloads](https://pepy.tech/badge/arc-adaptors)](https://pepy.tech/project/arc-adaptors)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-Adaptors for the Agent Remote Communication (ARC) Protocol.
+Adaptors that connect AI frameworks to the ARC Protocol, enabling direct communication between different agent systems.
 
 ## Overview
 
-ARC Adaptors connects the ARC Protocol with common AI frameworks and services:
+ARC Adaptors solves the practical problem of connecting different AI frameworks through the ARC Protocol. It lets you:
+
+- **Convert existing agents into supervisors**: Any LLM with tool-calling can delegate tasks to specialized agents
+- **Bridge incompatible systems**: Connect LangChain, LlamaIndex, and API-based agents without custom code
+- **Implement handoffs with minimal overhead**: Delegate tasks through standard tool interfaces
+
+Currently supports:
 
 - LangChain
 - LlamaIndex
@@ -57,6 +63,16 @@ llm = ChatOpenAI()
 agent = create_react_agent(llm, tools, prompt)
 result = await agent.ainvoke({"input": "What's 25 * 16?"})
 ```
+
+## Supervisor Agent Capabilities
+
+ARC Adaptors transforms standard agents into supervisors without additional dependencies. The adaptor:
+
+1. **Exposes specialized agents as tools**: Converts ARC agents into framework-specific tools (e.g., LangChain tools)
+2. **Translates between protocols**: Handles all message format conversions between frameworks and ARC
+3. **Routes messages correctly**: Ensures the right context is passed between agents
+
+This approach eliminates the need for specialized orchestration frameworks. Any LLM that can use tools becomes a potential supervisor that can coordinate specialized agents.
 
 ## Adaptors
 
